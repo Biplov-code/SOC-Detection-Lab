@@ -1,0 +1,6 @@
+SecurityEvent
+| where EventID == 4625
+| summarize FailedAttempts = count(), FirstSeen = min(TimeGenerated), LastSeen = max(TimeGenerated)
+    by Account, Computer, IpAddress
+| where FailedAttempts >= 5
+| order by FailedAttempts desc
